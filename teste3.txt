@@ -1,31 +1,53 @@
-tasks = []
+import java.util.ArrayList;
+import java.util.Scanner;
 
-def add_task(task):
-    tasks.append(task)
-    print(f"Task '{task}' added!")
+public class ToDoList {
+    // List to store tasks
+    private static ArrayList<String> tasks = new ArrayList<>();
 
-def view_tasks():
-    if tasks:
-        print("Your To-Do List:")
-        for i, task in enumerate(tasks, 1):
-            print(f"{i}. {task}")
-    else:
-        print("No tasks yet!")
+    // Method to add a task
+    public static void addTask(String task) {
+        tasks.add(task);
+        System.out.println("Task '" + task + "' added!");
+    }
 
-def main():
-    while True:
-        print("\n1. Add Task\n2. View Tasks\n3. Exit")
-        choice = input("Choose an option: ")
+    // Method to view tasks
+    public static void viewTasks() {
+        if (!tasks.isEmpty()) {
+            System.out.println("Your To-Do List:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
+            }
+        } else {
+            System.out.println("No tasks yet!");
+        }
+    }
 
-        if choice == "1":
-            task = input("Enter task: ")
-            add_task(task)
-        elif choice == "2":
-            view_tasks()
-        elif choice == "3":
-            print("Goodbye!")
-            break
-        else:
-            print("Invalid choice, try again.")
+    // Main method
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-main()
+        while (true) {
+            System.out.println("\n1. Add Task\n2. View Tasks\n3. Exit");
+            System.out.print("Choose an option: ");
+            String choice = scanner.nextLine();
+
+            switch (choice) {
+                case "1":
+                    System.out.print("Enter task: ");
+                    String task = scanner.nextLine();
+                    addTask(task);
+                    break;
+                case "2":
+                    viewTasks();
+                    break;
+                case "3":
+                    System.out.println("Goodbye!");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Invalid choice, try again.");
+            }
+        }
+    }
+}
